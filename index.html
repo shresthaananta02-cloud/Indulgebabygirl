@@ -136,19 +136,32 @@ z-index:900000;
 overflow:hidden;
 }
 
-.loveText{
-position:absolute;
-font-family:'Great Vibes',cursive;
-font-size:1.8rem;
-color:#ffcccc;
-animation:explode 4s linear forwards;
-white-space:nowrap;
+.loveText {
+  position: absolute;
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.8rem;
+  color: #ffcccc;
+  opacity: 0; /* Keep hidden until animation starts */
+  animation: explode 10s linear forwards; /* Set a default slow speed */
+  white-space: nowrap;
+  pointer-events: none;
 }
 
-@keyframes explode{
-0%{transform:scale(.5) translateY(0);opacity:0}
-20%{opacity:1}
-100%{transform:scale(1.5) translateY(-120vh) rotate(20deg);opacity:0}
+@keyframes explode {
+  0% {
+    transform: scale(0.5) translateY(0);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1; /* Fade in while moving */
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.2) translateY(-120vh) rotate(15deg);
+    opacity: 0;
+  }
 }
 </style>
 </head>
@@ -264,30 +277,41 @@ triggerLoveExplosion();
 }
 }
 
-function triggerLoveExplosion(){
-const phrases=[
-"Daddy loves his good girl 😈❤️",
-"My perfect girl ❤️",
-"All mine… always 😏",
-"Hottie 🔥",
-"Counting days till I hold you ❤️"
-];
+function triggerLoveExplosion() {
+  const phrases = [
+    "Daddy loves his good girl 😈❤️",
+    "My perfect girl ❤️",
+    "All mine… always 😏",
+    "Hottie 🔥",
+    "Counting days till I hold you ❤️"
+  ];
 
-const container=document.getElementById("loveExplosion");
+  const container = document.getElementById("loveExplosion");
+  container.innerHTML = ""; // Clear any old ones
 
-for(let i=0;i<40;i++){
-let t=document.createElement("div");
-t.className="loveText";
-t.innerText=phrases[Math.floor(Math.random()*phrases.length)];
-t.style.left=Math.random()*100+"vw";
-t.style.top=Math.random()*100+"vh";
-t.style.animationDuration=(Math.random()*2+3)+"s";
-container.appendChild(t);
+  for (let i = 0; i < 40; i++) {
+    let t = document.createElement("div");
+    t.className = "loveText";
+    t.innerText = phrases[Math.floor(Math.random() * phrases.length)];
+    
+    // Spread across screen width
+    t.style.left = Math.random() * 80 + 5 + "vw"; 
+    
+    // Start from the bottom area
+    t.style.top = (80 + Math.random() * 20) + "vh"; 
+    
+    // Very slow movement: 10 to 15 seconds
+    t.style.animationDuration = (Math.random() * 5 + 10) + "s";
+    
+    // Staggered entry so they flow in one after another
+    t.style.animationDelay = (Math.random() * 5) + "s";
+    
+    container.appendChild(t);
+  }
+
+  // Cleanup after all animations and delays are done
+  setTimeout(() => { container.innerHTML = ""; }, 20000);
 }
-
-setTimeout(()=>{container.innerHTML="";},5000);
-}
-
 function typeWriter(text){
 let el=document.getElementById("msg");
 el.innerHTML="";
