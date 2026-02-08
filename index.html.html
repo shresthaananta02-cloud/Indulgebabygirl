@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Indulge 🍫🔥</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+
+<style>
+body{
+margin:0;
+font-family:Poppins;
+background:radial-gradient(circle,#3a0000,#000);
+color:white;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+min-height:100vh;
+overflow:hidden;
+text-align:center;
+transition:1s;
+}
+
+.midnight{background:radial-gradient(circle,#140000,#000);}
+
+h1{
+font-family:'Great Vibes',cursive;
+font-size:2.7rem;
+background:linear-gradient(45deg,#ffd700,#fff,#ffb347);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.box{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:20px;
+padding:25px;
+background:rgba(40,10,10,.9);
+border-radius:20px;
+box-shadow:0 0 100px crimson;
+animation:breath 4s infinite ease-in-out;
+}
+
+@keyframes breath{
+0%{transform:scale(1)}
+50%{transform:scale(1.08)}
+100%{transform:scale(1)}
+}
+
+.choco{
+width:100px;height:100px;
+background:#2a120f;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:15px;
+font-size:40px;
+cursor:pointer;
+transition:.4s;
+}
+
+.unwrap{transform:rotateY(180deg) scale(1.2);}
+
+.overlay{
+display:none;
+position:fixed;
+top:0;left:0;
+width:100%;height:100%;
+background:rgba(0,0,0,.95);
+align-items:center;
+justify-content:center;
+}
+
+.card{
+background:linear-gradient(160deg,#1a0000,#3a0000);
+padding:35px;
+border-radius:20px;
+max-width:380px;width:90%;
+box-shadow:0 0 60px crimson;
+font-family:'Great Vibes';
+font-size:1.7rem;
+position:relative;
+overflow:hidden;
+}
+
+.floaty{
+position:absolute;
+font-size:20px;
+opacity:.4;
+animation:float 10s linear infinite;
+}
+
+@keyframes float{
+0%{transform:translateY(0)}
+100%{transform:translateY(-120vh)}
+}
+
+button{
+margin-top:15px;
+padding:14px;
+width:100%;
+background:#8b0000;
+color:white;
+border:none;
+border-radius:8px;
+font-family:Poppins;
+}
+
+#intro,#lock{
+position:fixed;
+top:0;left:0;width:100%;height:100%;
+background:black;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+z-index:999;
+}
+
+#gallery{display:none;margin-top:20px;}
+img{width:90px;border-radius:10px;margin:5px;}
+#final{display:none;font-family:'Great Vibes';font-size:2rem;margin-top:20px;}
+
+/* LOVE EXPLOSION */
+#loveExplosion{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+pointer-events:none;
+z-index:900000;
+overflow:hidden;
+}
+
+.loveText {
+  position: absolute;
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.8rem;
+  color: #ffcccc;
+  opacity: 0; /* Keep hidden until animation starts */
+  animation: explode 10s linear forwards; /* Set a default slow speed */
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+@keyframes explode {
+  0% {
+    transform: scale(0.5) translateY(0);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1; /* Fade in while moving */
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.2) translateY(-120vh) rotate(15deg);
+    opacity: 0;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div id="intro">
+<h1>For Mrs. Shrestha… ❤️</h1>
+<button onclick="start()">Enter Experience 😈</button>
+</div>
+
+<div id="lock">
+<h2>Only Mrs. Shrestha Allowed 🔐</h2>
+<input id="pass" placeholder="password">
+<button onclick="unlock()">Unlock</button>
+</div>
+
+<audio id="music" loop></audio>
+<audio id="voice" src="voice.mp3"></audio>
+
+<h1>Indulge, My Baby Girl 🍫🔥</h1>
+<p>Happy Chocolate Day… gym bodies now… chocolate bites later… starting with me 😈</p>
+
+<div class="box">
+<div class="choco" onclick="openMsg(0,this)">🍫</div>
+<div class="choco" onclick="openMsg(1,this)">🔥</div>
+<div class="choco" onclick="openMsg(2,this)">💋</div>
+<div class="choco" onclick="openMsg(3,this)">❤️</div>
+</div>
+
+
+
+<div id="gallery">
+<h3>Unlocked Memories 📸</h3>
+<img src="photo1.jpg">
+<img src="photo2.jpg">
+<img src="photo3.jpg">
+</div>
+
+<div id="final">No more virtual chocolates… next time… you unwrap me in real life 😈❤️</div>
+
+<div id="loveExplosion"></div>
+
+<div class="overlay" id="overlay">
+<div class="card">
+<div id="msg"></div>
+<button onclick="closeMsg()">Back to the box 😏</button>
+</div>
+</div>
+
+<script>
+document.getElementById("lock").style.display="none";
+function start(){
+document.getElementById("intro").style.display="none";
+document.getElementById("lock").style.display="flex";
+}
+
+function unlock(){
+if(document.getElementById("pass").value.toLowerCase()=="daddy"){
+document.getElementById("lock").style.display="none";
+}
+}
+
+let hour=new Date().getHours();
+if(hour>=23||hour<=4)document.body.classList.add("midnight");
+
+const tracks=["music1.mp3","music2.mp3","music3.mp3","music4.mp3","music5.mp3"];
+let musicStarted=false;
+function playRandom(){
+let audio=document.getElementById("music");
+let track=tracks[Math.floor(Math.random()*tracks.length)];
+audio.src=track;
+audio.load();
+audio.onloadedmetadata=()=>{
+audio.currentTime=Math.random()*audio.duration;
+audio.play();
+};
+}
+
+const messages=[
+"We’re skipping chocolate for that T-Body… but I know exactly what you want to devour when we finally meet. 😏",
+"Distance builds hunger… workouts build stamina… and we’ll test both very soon. 🔥",
+"No sugar… just you craving my taste more every night we stay apart. 💋",
+"All this endurance… is just preparation for when we finally lose control together. 😈"
+];
+
+let opened=0;
+function openMsg(i,el){
+document.getElementById("overlay").style.display="flex";
+if(navigator.vibrate)navigator.vibrate([60,40,120]);
+el.classList.add("unwrap");
+
+if(!musicStarted){playRandom();musicStarted=true;}
+
+typeWriter(messages[i]);
+
+opened++;
+if(opened>=4){
+setTimeout(()=>{
+document.getElementById("gallery").style.display="block";
+document.getElementById("final").style.display="block";
+},1500);
+}
+}
+
+function closeMsg(){
+document.getElementById("overlay").style.display="none";
+document.getElementById("msg").innerHTML="";
+playRandom();
+
+if(opened>=4){
+triggerLoveExplosion();
+}
+}
+
+function triggerLoveExplosion() {
+  const phrases = [
+    "Daddy loves his good girl 😈❤️",
+    "My perfect girl ❤️",
+    "All mine… always 😏",
+    "Hottie 🔥",
+    "Counting days till I hold you ❤️"
+  ];
+
+  const container = document.getElementById("loveExplosion");
+  container.innerHTML = ""; // Clear any old ones
+
+  for (let i = 0; i < 40; i++) {
+    let t = document.createElement("div");
+    t.className = "loveText";
+    t.innerText = phrases[Math.floor(Math.random() * phrases.length)];
+    
+    // Spread across screen width
+    t.style.left = Math.random() * 80 + 5 + "vw"; 
+    
+    // Start from the bottom area
+    t.style.top = (80 + Math.random() * 20) + "vh"; 
+    
+    // Very slow movement: 10 to 15 seconds
+    t.style.animationDuration = (Math.random() * 5 + 10) + "s";
+    
+    // Staggered entry so they flow in one after another
+    t.style.animationDelay = (Math.random() * 5) + "s";
+    
+    container.appendChild(t);
+  }
+
+  // Cleanup after all animations and delays are done
+  setTimeout(() => { container.innerHTML = ""; }, 20000);
+}
+function typeWriter(text){
+let el=document.getElementById("msg");
+el.innerHTML="";
+let i=0;
+function t(){
+if(i<text.length){
+el.innerHTML+=text.charAt(i);
+i++;
+setTimeout(t,40);
+}}
+t();
+}
+
+const card=document.querySelector(".card");
+const em=["💋","❤️","🔥","🤗"];
+for(let i=0;i<20;i++){
+let f=document.createElement("div");
+f.className="floaty";
+f.innerText=em[Math.floor(Math.random()*em.length)];
+f.style.left=Math.random()*100+"%";
+f.style.top=Math.random()*100+"%";
+card.appendChild(f);
+}
+
+window.addEventListener("deviceorientation",e=>{
+document.body.style.background=
+`radial-gradient(circle at ${e.gamma+50}% ${e.beta+50}%,#5a0000,#000)`;
+});
+</script>
+
+</body>
+</html>
